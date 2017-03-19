@@ -16,6 +16,7 @@ public class Test {
 	private BigInteger sum = new BigInteger("0");
 	private BigInteger unknownNumber;
 	private File file = new File("test.txt");
+	private int intMaxValue;
 
 	// Получаем рандомное число
 	public Long getRandom() {
@@ -28,13 +29,47 @@ public class Test {
 		try {
 			FileWriter fw = new FileWriter(file);
 			for (long i = THE_ONE_NUMBER; i <= number; i++) {
-				if (i != randomNumber)
+				//if (i != randomNumber)
 					fw.write(i + "\n");
 			}
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//Вычесление максимального значения числа n, при котором сумма числового ряда от 1 до n будет не больше Integer Max Value
+	public int getNumber () {
+		long b = (8L * Integer.MAX_VALUE);
+		b = (((long)Math.sqrt((1+b)))-1)/2;
+		intMaxValue = (int) ((b*(b + 1))/2);
+		return intMaxValue;
+	}
+	
+	//Вычесление ряда чисел от 1 до n по размеру файла
+	public long getNumberForFile (long size) {
+		int b = 9;	
+		int a = 2;
+		int e = 1;
+		int f = a * e;
+		int d = b * f;
+		int c = 6669074;
+		int count = 0;
+		int itog = 0;
+
+        while (d < c) {
+        	int sum = b * e;
+        	itog = itog + sum;
+        	e *= 10;
+        	c = c - d;
+        	a++;
+        	f = a * e;
+        	count = count + d;
+        	System.out.println(count);
+        	d = b * f;
+        }
+        itog = itog + (c / a);
+        return itog;
 	}
 
 	// Считываем числа из файла FileReader не использовал что бы не искать конец
@@ -46,7 +81,7 @@ public class Test {
 			FileInputStream fis = new FileInputStream(file);
 			InputStreamReader isr = new InputStreamReader(fis);
 			BufferedReader br = new BufferedReader(isr);
-
+			
 			while ((readNumber = br.readLine()) != null) {
 				sum = sum.add(new BigInteger(readNumber));
 			}
